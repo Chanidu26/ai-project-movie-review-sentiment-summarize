@@ -3,3 +3,4 @@ data/train.csv
 data/val.csv
 models/*
 outputs/*
+test-ntbs/*
