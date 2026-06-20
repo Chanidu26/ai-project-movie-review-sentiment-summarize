@@ -127,9 +127,29 @@ python app.py
 
 The server listens on port 5000 by default.
 
-API (HTTP)
-- GET `/health` — returns basic server/device info.
-- POST `/analyse` — JSON body: `{"review": "<text>", "method": "tfidf"}` or `{"method":"gemini"}` to use the generative route.
+### Using the Web Frontend (`index.html`)
+
+Once the Flask server is running:
+1. Open your browser and navigate to `http://localhost:5000/`
+2. You should see the **Movie Review Analyser** interface (styled dark theme with accent colors)
+3. Enter or paste a movie review in the text area
+4. Choose a summarization method:
+   - **TF‑IDF** (default, fast, no API key needed)
+   - **Gemini** (requires `GEMINI_API_KEY` in `.env`, more fluent summaries)
+5. Click **Analyse** to process the review
+6. Results display:
+   - **Sentiment** (positive/negative probability)
+   - **Summary** variations (concise, audience, critic, chain-of-thought)
+   - **Word count** of the original review
+
+The frontend is a simple, responsive single-page application that calls the `/analyse` endpoint.
+
+### API Endpoints
+
+- **GET `/health`** — returns basic server/device info (CPU or GPU).
+- **POST `/analyse`** — sends a review for analysis.
+  - Request body: `{"review": "<your review text>", "method": "tfidf"}` or `{"method":"gemini"}`
+  - Response: JSON with sentiment probabilities, summaries (4 styles), and word count.
 
 Example (curl):
 
