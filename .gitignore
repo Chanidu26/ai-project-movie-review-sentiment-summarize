@@ -4,3 +4,5 @@ data/val.csv
 models/*
 outputs/*
 test-ntbs/*
+.env
+test

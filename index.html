@@ -19,6 +19,8 @@
     --text:      #f0f0f0;
     --muted:     #6b7280;
     --radius:    14px;
+    --ai-color:  #a78bfa;
+    --tfidf-color: #60a5fa;
   }
 
   body {
@@ -30,7 +32,6 @@
     padding: 0 1rem 4rem;
   }
 
-  /* ── noise texture overlay ── */
   body::before {
     content: '';
     position: fixed;
@@ -47,7 +48,6 @@
     z-index: 1;
   }
 
-  /* ── header ── */
   header {
     padding: 4rem 0 2.5rem;
     display: flex;
@@ -55,31 +55,19 @@
     gap: 1.5rem;
   }
   .logo-mark {
-    width: 52px;
-    height: 52px;
+    width: 52px; height: 52px;
     background: var(--accent);
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; flex-shrink: 0;
   }
   header h1 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.2rem, 5vw, 3.2rem);
-    letter-spacing: 1px;
-    line-height: 1;
-    color: var(--text);
+    letter-spacing: 1px; line-height: 1;
   }
-  header p {
-    font-size: 0.875rem;
-    color: var(--muted);
-    margin-top: 4px;
-    letter-spacing: 0.02em;
-  }
+  header p { font-size: 0.875rem; color: var(--muted); margin-top: 4px; letter-spacing: 0.02em; }
 
-  /* ── input section ── */
   .input-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -89,12 +77,9 @@
   }
 
   .input-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.75rem;
   }
 
   textarea {
@@ -104,58 +89,113 @@
     border-radius: 10px;
     color: var(--text);
     font-family: 'Outfit', sans-serif;
-    font-size: 0.975rem;
-    line-height: 1.7;
+    font-size: 0.975rem; line-height: 1.7;
     padding: 1rem 1.1rem;
-    resize: vertical;
-    min-height: 150px;
-    outline: none;
-    transition: border-color 0.2s;
+    resize: vertical; min-height: 150px;
+    outline: none; transition: border-color 0.2s;
   }
   textarea::placeholder { color: #3d4049; }
   textarea:focus { border-color: rgba(232,255,71,0.4); }
 
-  .btn-row {
+  /* ── Method selector ── */
+  .method-row {
     display: flex;
     gap: 10px;
     margin-top: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .method-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s;
+    text-align: left;
+  }
+  .method-btn:hover { border-color: rgba(255,255,255,0.18); }
+
+  .method-btn.active-tfidf {
+    border-color: var(--tfidf-color);
+    background: rgba(96,165,250,0.08);
+  }
+  .method-btn.active-gemini {
+    border-color: var(--ai-color);
+    background: rgba(167,139,250,0.08);
+  }
+
+  .method-btn-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .method-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 99px;
+  }
+  .badge-tfidf  { background: rgba(96,165,250,0.18); color: #93c5fd; }
+  .badge-gemini { background: rgba(167,139,250,0.18); color: #c4b5fd; }
+
+  .method-btn-desc {
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* active indicator dot */
+  .method-indicator {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--muted);
+    margin-left: auto;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  .active-tfidf  .method-indicator { background: var(--tfidf-color); box-shadow: 0 0 6px var(--tfidf-color); }
+  .active-gemini .method-indicator { background: var(--ai-color);    box-shadow: 0 0 6px var(--ai-color); }
+
+  .btn-row {
+    display: flex; gap: 10px; margin-top: 1rem;
   }
 
   button {
     font-family: 'Outfit', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
+    font-size: 0.9rem; font-weight: 600;
+    border: none; cursor: pointer;
     border-radius: 9px;
     padding: 0.65rem 1.4rem;
     transition: transform 0.12s, opacity 0.12s;
   }
   button:active { transform: scale(0.97); }
 
-  .btn-primary {
-    background: var(--accent);
-    color: #0b0c0f;
-    flex: 1;
-  }
+  .btn-primary { background: var(--accent); color: #0b0c0f; flex: 1; }
   .btn-primary:hover { opacity: 0.88; }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
   .btn-ghost {
-    background: var(--surface2);
-    color: var(--muted);
+    background: var(--surface2); color: var(--muted);
     border: 1px solid var(--border);
   }
   .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.18); }
 
   /* ── spinner ── */
   .spinner-wrap {
-    display: none;
-    align-items: center;
-    gap: 10px;
-    padding: 1.2rem 0;
-    color: var(--muted);
-    font-size: 0.9rem;
+    display: none; align-items: center; gap: 10px;
+    padding: 1.2rem 0; color: var(--muted); font-size: 0.9rem;
   }
   .spinner-wrap.show { display: flex; }
   .spinner {
@@ -169,196 +209,114 @@
 
   /* ── results ── */
   #results { display: none; }
-  #results.show {
-    display: block;
-    animation: fadeUp 0.4s ease both;
-  }
+  #results.show { display: block; animation: fadeUp 0.4s ease both; }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
   .section-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.75rem;
   }
 
-  /* sentiment card */
   .sentiment-card {
-    border-radius: var(--radius);
-    padding: 1.5rem 1.75rem;
+    border-radius: var(--radius); padding: 1.5rem 1.75rem;
     margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    border: 1px solid;
-    position: relative;
-    overflow: hidden;
+    display: flex; align-items: center; gap: 1.25rem;
+    border: 1px solid; position: relative; overflow: hidden;
   }
   .sentiment-card::before {
-    content: '';
-    position: absolute;
+    content: ''; position: absolute;
     right: -30px; top: -30px;
     width: 120px; height: 120px;
-    border-radius: 50%;
-    opacity: 0.07;
+    border-radius: 50%; opacity: 0.07;
   }
-  .s-positive {
-    background: rgba(74,222,128,0.06);
-    border-color: rgba(74,222,128,0.25);
-  }
+  .s-positive { background: rgba(74,222,128,0.06); border-color: rgba(74,222,128,0.25); }
   .s-positive::before { background: var(--pos); }
-  .s-negative {
-    background: rgba(248,113,113,0.06);
-    border-color: rgba(248,113,113,0.25);
-  }
+  .s-negative { background: rgba(248,113,113,0.06); border-color: rgba(248,113,113,0.25); }
   .s-negative::before { background: var(--neg); }
 
-  .s-icon {
-    font-size: 2.4rem;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  .s-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 1px;
-    line-height: 1;
-  }
+  .s-icon { font-size: 2.4rem; line-height: 1; flex-shrink: 0; }
+  .s-label { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 1px; line-height: 1; }
   .s-positive .s-label { color: var(--pos); }
   .s-negative .s-label { color: var(--neg); }
-  .s-conf {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-top: 3px;
-  }
+  .s-conf { font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
 
-  /* prob bars */
   .prob-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
     margin-bottom: 1.25rem;
   }
-  .prob-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
-  }
+  .prob-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
   .prob-row:last-child { margin-bottom: 0; }
-  .prob-name {
-    width: 68px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--muted);
-    flex-shrink: 0;
-  }
-  .bar-bg {
-    flex: 1;
-    height: 7px;
-    background: var(--surface2);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%;
-    border-radius: 99px;
-    transition: width 0.8s cubic-bezier(.22,.61,.36,1);
-  }
+  .prob-name { width: 68px; font-size: 0.8rem; font-weight: 500; color: var(--muted); flex-shrink: 0; }
+  .bar-bg { flex: 1; height: 7px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; transition: width 0.8s cubic-bezier(.22,.61,.36,1); }
   .bar-pos { background: var(--pos); }
   .bar-neg { background: var(--neg); }
-  .prob-pct {
-    width: 46px;
-    text-align: right;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text);
-  }
+  .prob-pct { width: 46px; text-align: right; font-size: 0.85rem; font-weight: 600; }
 
-  /* summary grid */
-  .summary-section {
-    margin-top: 1.75rem;
+  /* ── method pill shown in results ── */
+  .method-used-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 0.85rem;
   }
-  .summary-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+  .pill-tfidf  { background: rgba(96,165,250,0.12); color: #93c5fd; border: 1px solid rgba(96,165,250,0.25); }
+  .pill-gemini { background: rgba(167,139,250,0.12); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.25); }
+
+  /* ── summary grid ── */
+  .summary-section { margin-top: 1.75rem; }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 540px) { .summary-grid { grid-template-columns: 1fr; } }
 
   .sum-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.1rem 1.25rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.1rem 1.25rem;
     transition: border-color 0.2s, transform 0.2s;
   }
-  .sum-card:hover {
-    border-color: rgba(255,255,255,0.15);
-    transform: translateY(-2px);
-  }
+  .sum-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
 
   .sum-tag {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 99px;
-    margin-bottom: 0.6rem;
+    display: inline-block; font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 99px; margin-bottom: 0.6rem;
   }
-  .tag-concise  { background: rgba(59,130,246,0.15); color: #93c5fd; }
-  .tag-audience { background: rgba(168,85,247,0.15); color: #d8b4fe; }
-  .tag-critic   { background: rgba(249,115,22,0.15); color: #fdba74; }
-  .tag-cot      { background: rgba(74,222,128,0.15); color: #86efac; }
+  .tag-concise  { background: rgba(59,130,246,0.15);  color: #93c5fd; }
+  .tag-audience { background: rgba(168,85,247,0.15);  color: #d8b4fe; }
+  .tag-critic   { background: rgba(249,115,22,0.15);  color: #fdba74; }
+  .tag-cot      { background: rgba(74,222,128,0.15);  color: #86efac; }
 
-  .sum-text {
-    font-size: 0.875rem;
-    color: #c9ccd4;
-    line-height: 1.7;
-  }
+  .sum-text { font-size: 0.875rem; color: #c9ccd4; line-height: 1.7; }
 
-  /* footer meta */
   .meta-bar {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--border);
+    display: flex; gap: 1.5rem; margin-top: 1.5rem;
+    padding-top: 1.25rem; border-top: 1px solid var(--border);
+    flex-wrap: wrap;
   }
-  .meta-item {
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
+  .meta-item { font-size: 0.78rem; color: var(--muted); }
   .meta-item span { color: var(--text); font-weight: 500; }
 
-  /* error */
   .error-box {
-    background: rgba(248,113,113,0.08);
-    border: 1px solid rgba(248,113,113,0.3);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-    color: #fca5a5;
-    font-size: 0.9rem;
-    display: none;
-    margin-top: 0.75rem;
+    background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.3);
+    border-radius: var(--radius); padding: 1rem 1.25rem;
+    color: #fca5a5; font-size: 0.9rem;
+    display: none; margin-top: 0.75rem;
   }
   .error-box.show { display: block; }
 
-  /* connection status dot */
   .status-dot {
-    display: inline-block;
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    margin-right: 6px;
-    background: var(--muted);
+    display: inline-block; width: 7px; height: 7px;
+    border-radius: 50%; margin-right: 6px; background: var(--muted);
   }
   .status-dot.ok  { background: var(--pos); box-shadow: 0 0 6px var(--pos); }
   .status-dot.err { background: var(--neg); }
@@ -376,16 +334,39 @@
     </div>
   </header>
 
-  <!-- API status -->
   <div style="margin-bottom:1.25rem">
     <span class="status-dot" id="status-dot"></span>
     <span id="status-text">Checking backend...</span>
   </div>
 
-  <!-- Input -->
   <div class="input-card">
     <div class="input-label">Movie Review</div>
     <textarea id="review-input" placeholder="Paste a movie review here — the longer the better for summaries..."></textarea>
+
+    <!-- ── Method selector ── -->
+    <div class="input-label" style="margin-top:1.1rem">Summarization Method</div>
+    <div class="method-row">
+
+      <button class="method-btn active-tfidf" id="btn-tfidf" onclick="selectMethod('tfidf')">
+        <div class="method-btn-title">
+          <span class="method-badge badge-tfidf">Method 1</span>
+          TF-IDF Extractive
+          <span class="method-indicator"></span>
+        </div>
+        <div class="method-btn-desc">Picks the most important existing sentences using TF-IDF scoring. Fast, no generation.</div>
+      </button>
+
+      <button class="method-btn" id="btn-gemini" onclick="selectMethod('gemini')">
+        <div class="method-btn-title">
+          <span class="method-badge badge-gemini">Method 2</span>
+          Gemini Flash
+          <span class="method-indicator"></span>
+        </div>
+        <div class="method-btn-desc">Uses style-engineered system instructions sent to the Gemini Flash API to generate brand-new summary text.</div>
+      </button>
+
+    </div>
+
     <div class="btn-row">
       <button class="btn-primary" id="analyse-btn" onclick="analyse()">Analyse Review →</button>
       <button class="btn-ghost" onclick="loadExample()">Load Example</button>
@@ -394,17 +375,14 @@
     <div class="error-box" id="error-box"></div>
   </div>
 
-  <!-- Spinner -->
   <div class="spinner-wrap" id="spinner">
     <div class="spinner"></div>
-    <span>Analysing with BERT...</span>
+    <span id="spinner-text">Analysing with BERT...</span>
   </div>
 
-  <!-- Results -->
   <div id="results">
 
     <div class="section-label">Sentiment</div>
-
     <div class="sentiment-card" id="sent-card">
       <div class="s-icon" id="sent-icon"></div>
       <div>
@@ -429,6 +407,8 @@
 
     <div class="summary-section">
       <div class="section-label">Summaries — 4 Prompt Strategies</div>
+      <div id="method-used-pill"></div>
+
       <div class="summary-grid">
         <div class="sum-card">
           <div class="sum-tag tag-concise">Concise</div>
@@ -451,20 +431,29 @@
       <div class="meta-bar">
         <div class="meta-item">Words: <span id="meta-words">—</span></div>
         <div class="meta-item">Device: <span id="meta-device">—</span></div>
-        <div class="meta-item">Model: <span>DistilBERT fine-tuned</span></div>
+        <div class="meta-item">Sentiment model: <span>DistilBERT fine-tuned</span></div>
+        <div class="meta-item">Summarizer: <span id="meta-method">—</span></div>
       </div>
     </div>
 
-  </div><!-- /results -->
+  </div>
 
-</div><!-- /wrap -->
+</div>
 
 <script>
 const API = 'http://localhost:5000';
+let selectedMethod = 'tfidf';
 
 const EXAMPLE = `I watched this film last night and it was absolutely incredible. The director did a fantastic job building tension throughout, weaving together multiple storylines with effortless precision. The lead actor delivered one of the best performances I have seen in years — every scene felt genuine and emotionally charged. The cinematography was breathtaking, with long sweeping shots that gave the film a truly epic scale. However, the ending felt a bit rushed and left too many questions unanswered. A few subplots were also abandoned without resolution, which was frustrating given how carefully they were set up. Overall still a must-watch film that deserves all the awards buzz it has been receiving.`;
 
-// ── Check backend health on load ─────────────────────────────────────────────
+// ── Method selection ──────────────────────────────────────────────────────────
+function selectMethod(method) {
+  selectedMethod = method;
+  document.getElementById('btn-tfidf').className  = 'method-btn' + (method === 'tfidf'  ? ' active-tfidf'  : '');
+  document.getElementById('btn-gemini').className = 'method-btn' + (method === 'gemini' ? ' active-gemini' : '');
+}
+
+// ── Health check ─────────────────────────────────────────────────────────────
 async function checkHealth() {
   const dot  = document.getElementById('status-dot');
   const text = document.getElementById('status-text');
@@ -472,48 +461,51 @@ async function checkHealth() {
     const r = await fetch(`${API}/health`, { signal: AbortSignal.timeout(3000) });
     const d = await r.json();
     if (d.status === 'ok') {
-      dot.className  = 'status-dot ok';
+      dot.className = 'status-dot ok';
       text.textContent = `Backend connected · ${d.device.toUpperCase()}`;
       document.getElementById('meta-device').textContent = d.device.toUpperCase();
     }
   } catch {
-    dot.className  = 'status-dot err';
+    dot.className = 'status-dot err';
     text.textContent = 'Backend offline — run: py app.py';
   }
 }
 
-// ── Analyse ──────────────────────────────────────────────────────────────────
+// ── Analyse ───────────────────────────────────────────────────────────────────
 async function analyse() {
   const review = document.getElementById('review-input').value.trim();
   const errBox = document.getElementById('error-box');
-
   errBox.classList.remove('show');
 
-  if (!review) {
-    showError('Please paste a review before analysing.');
-    return;
-  }
+  if (!review) { showError('Please paste a review before analysing.'); return; }
 
   setLoading(true);
   document.getElementById('results').classList.remove('show');
 
+  // update spinner text to reflect the chosen method
+  document.getElementById('spinner-text').textContent =
+    selectedMethod === 'gemini'
+      ? 'Generating with Gemini Flash...'
+      : 'Extracting with TF-IDF...';
+
   try {
-    const res  = await fetch(`${API}/analyse`, {
+    const res = await fetch(`${API}/analyse`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ review })
+      body:    JSON.stringify({ review, method: selectedMethod })
     });
-
-    if (!res.ok) throw new Error(`Server error ${res.status}`);
+    if (!res.ok) {
+      // Try to surface the backend's actual error message instead of just the status code
+      let detail = '';
+      try { detail = (await res.json()).error || ''; } catch {}
+      throw new Error(detail || `Server error ${res.status}`);
+    }
     const data = await res.json();
     renderResults(data);
-
   } catch (err) {
-    if (err.message.includes('fetch')) {
-      showError('Cannot reach backend. Make sure you ran: py app.py');
-    } else {
-      showError(`Error: ${err.message}`);
-    }
+    showError(err.message.includes('fetch')
+      ? 'Cannot reach backend. Make sure you ran: py app.py'
+      : `Error: ${err.message}`);
   } finally {
     setLoading(false);
   }
@@ -521,11 +513,11 @@ async function analyse() {
 
 // ── Render ────────────────────────────────────────────────────────────────────
 function renderResults(data) {
-  const { sentiment, summaries, word_count } = data;
-  const isPos = sentiment.label === 'Positive';
-  const conf  = (Math.max(sentiment.positive_prob, sentiment.negative_prob) * 100).toFixed(1);
-  const posPct = (sentiment.positive_prob * 100).toFixed(1);
-  const negPct = (sentiment.negative_prob * 100).toFixed(1);
+  const { sentiment, summaries, word_count, method } = data;
+  const isPos  = sentiment.label === 'Positive';
+  const conf   = (Math.max(sentiment.positive_prob, sentiment.negative_prob) * 100).toFixed(1);
+  const posPct = (sentiment.positive_prob  * 100).toFixed(1);
+  const negPct = (sentiment.negative_prob  * 100).toFixed(1);
 
   // sentiment card
   const card = document.getElementById('sent-card');
@@ -534,7 +526,6 @@ function renderResults(data) {
   document.getElementById('sent-label').textContent = sentiment.label.toUpperCase();
   document.getElementById('sent-conf').textContent  = `Confidence: ${conf}%`;
 
-  // bars (animate after paint)
   requestAnimationFrame(() => {
     document.getElementById('bar-pos').style.width = `${posPct}%`;
     document.getElementById('bar-neg').style.width = `${negPct}%`;
@@ -547,6 +538,16 @@ function renderResults(data) {
     document.getElementById(`sum-${s}`).textContent = summaries[s];
   });
 
+  // method pill
+  const pillEl = document.getElementById('method-used-pill');
+  if (method === 'gemini') {
+    pillEl.innerHTML = '<span class="method-used-pill pill-gemini">⚡ Gemini Flash Generative — new text generated</span>';
+    document.getElementById('meta-method').textContent = 'Gemini Flash (generative)';
+  } else {
+    pillEl.innerHTML = '<span class="method-used-pill pill-tfidf">📋 TF-IDF Extractive — sentences selected</span>';
+    document.getElementById('meta-method').textContent = 'TF-IDF (extractive)';
+  }
+
   // meta
   document.getElementById('meta-words').textContent = word_count;
 
@@ -554,30 +555,26 @@ function renderResults(data) {
   document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// ── Helpers ────────────────────────────────────────────────────────────────
 function setLoading(on) {
   document.getElementById('spinner').classList.toggle('show', on);
   document.getElementById('analyse-btn').disabled = on;
 }
-
 function showError(msg) {
   const b = document.getElementById('error-box');
   b.textContent = msg;
   b.classList.add('show');
 }
-
 function loadExample() {
   document.getElementById('review-input').value = EXAMPLE;
   document.getElementById('error-box').classList.remove('show');
 }
-
 function clearAll() {
   document.getElementById('review-input').value = '';
   document.getElementById('results').classList.remove('show');
   document.getElementById('error-box').classList.remove('show');
 }
 
-// allow Ctrl+Enter to analyse
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') analyse();
 });
