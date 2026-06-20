@@ -6,3 +6,4 @@ outputs/*
 test-ntbs/*
 .env
 test
+*.zip

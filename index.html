@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie Review Analyser</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Pliant:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -329,7 +329,7 @@
   <header>
     <div class="logo-mark">🎬</div>
     <div>
-      <h1>Movie Review Analyser</h1>
+      <h2>Movie Review Sentiment Analyzer and Summarizer</h2>
       <p>Sentiment · Summarization · Prompt Engineering</p>
     </div>
   </header>
@@ -467,7 +467,7 @@ async function checkHealth() {
     }
   } catch {
     dot.className = 'status-dot err';
-    text.textContent = 'Backend offline — run: py app.py';
+    text.textContent = 'Backend offline';
   }
 }
 
